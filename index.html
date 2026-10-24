@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2026 沖繩重遊 散步帖</title>
+<style>
+:root{--bg:#eaf6f8;--card:#fff;--ink:#23424a;--sub:#5d7f88;--ac:#1fa5b8;--ac2:#ffd36e;--line:#cfe6ea;--add:#ff8a65;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="pink"]{--bg:#fff0f5;--ink:#5a2d44;--sub:#98607c;--ac:#ec6fa3;--ac2:#ffe08a;--line:#f6cfe0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]):not([data-theme="pink"]){--bg:#10262b;--card:#173941;--ink:#e3f4f7;--sub:#9cc3cb;--line:#25525c}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,"Noto Sans TC","PingFang TC",sans-serif}
+header{padding:20px 16px 8px;text-align:center}
+h1{margin:0;font-size:22px}
+.sub{color:var(--sub);font-size:13px}
+.bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
+button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.clock{font-variant-numeric:tabular-nums;font-size:13px;color:var(--sub)}
+.flight{margin:8px 16px;padding:10px 12px;border-radius:14px;background:var(--card);border:1px dashed var(--ac);font-size:13px}
+nav{position:sticky;top:0;z-index:5;display:flex;gap:6px;overflow-x:auto;padding:8px 16px;background:var(--bg);padding-top:calc(8px + env(safe-area-inset-top,0px))}
+nav button{white-space:nowrap}
+main{padding:0 16px 40px;max-width:640px;margin:0 auto}
+h2{font-size:18px;margin:14px 0 4px}
+.ev{display:flex;gap:10px;margin:8px 0;padding:10px 12px;background:var(--card);border-radius:14px;border-left:5px solid var(--ac)}
+.ev.eat{border-left-color:var(--ac2)}.ev.move{border-left-color:var(--line)}
+.t{min-width:46px;font-weight:700;color:var(--ac);font-variant-numeric:tabular-nums}
+.n{font-weight:600}.d{font-size:13px;color:var(--sub)}
+.tag{display:inline-block;font-size:11px;background:var(--add);color:#fff;border-radius:6px;padding:0 5px;margin-left:4px;vertical-align:1px}
+a{color:var(--ac)}
+.tip{margin-top:12px;padding:10px 12px;border-radius:14px;background:var(--card);font-size:13px}
+.note{font-size:12px;color:var(--sub);text-align:center;margin:20px 0}
+</style>
+</head>
+<body>
+<header>
+<h1>🌺 2026 沖繩重遊 散步帖</h1>
+<div class="sub">12/08（二）– 12/12（六）・高雄出發 ✈️ 那霸</div>
+<div class="bar">
+<button id="th">🌸 切換粉嫩</button>
+<button id="jp">🕒 日本現在時間</button>
+</div>
+<div class="clock" id="clk" hidden></div>
+</header>
+<div class="flight">✈️ 去程 IT728｜12/8 KHH 17:30 → OKA 19:55<br>✈️ 回程 IT289｜12/12 OKA 14:00 → KHH 14:55<br>🏨 Tenpoint Hotel OKOU（牧志）・🚗 OTS 租車・📶 SIM 卡・🎟️ 美麗海水族館、首里城</div>
+<nav id="nav"></nav>
+<main id="main"></main>
+<div class="note">橘色「補」標籤＝我補充的建議，可自行刪改。營業時間與休日出發前請以 Google 地圖／官網為準。</div>
+<script>
+var D=[
+{k:"12/8（二）",t:"抵達日・夜間取車",e:[
+["17:30","高雄起飛 IT728","move","19:55 抵達那霸機場"],
+["19:55","抵達那霸機場","move","領行李、入境；搭 OTS 接駁車前往營業所",1],
+["21:00","OTS 取車","spot","檢查車況、拍照存證、確認還車油量規定；導航設定飯店"],
+["21:15","超商補給","eat","買水、早餐麵包、飯糰，明早省時間"],
+["21:30","飯店 Check in","spot","Tenpoint Hotel OKOU・牧志 2-17-22。確認停車位位置",0]],
+tip:"晚班機抵達，晚餐建議在機場或超商解決；若還有力氣，牧志站周邊居酒屋多半營業到深夜。"},
+{k:"12/9（三）",t:"首里・瀨長島・國際通",e:[
+["09:00","首里城","spot","出發前先確認正殿與開放區域；停車場在首里城公園周邊"],
+["11:30","午餐｜PICO","eat","首里城附近",0],
+["12:30","首里金城石板路・玉陵（順路）","spot","首里城附近的古道，散步約 20–30 分鐘",1],
+["13:00","達摩寺","spot","首里地區寺院，與首里城同區域安排"],
+["15:00","瀨長島","spot","逛 Umikaji Terrace，12 月日落約 17:45，可看夕陽",0],
+["17:00","晚餐｜by・The・Shrimp 蝦蝦飯","eat","瀨長島上的蝦蝦飯",0],
+["17:45","MOTOMU'S CURRY BREAD 咖哩麵包","eat","瀨長島上，晚餐的另一個選擇，可外帶邊走邊吃",0],
+["19:00","國際通","spot","停車後步行逛街；晚餐已在瀨長島解決，專心逛伴手禮、藥妝",1]],
+tip:"首里 → 瀨長島約 30–40 分鐘車程；瀨長島 → 國際通回程傍晚易塞，若太累可直接回飯店休息，國際通 12/10、12/11 還會再逛。"},
+{k:"12/10（四）",t:"北部・美麗海水族館",e:[
+["07:45","從飯店出發","move","那霸到許田約 1 小時，建議走高速（沖繩道）",1],
+["09:00","許田休息站","spot","上廁所、買點心，再往本部前進"],
+["10:00","美麗海水族館","spot","建議留 3–4 小時；黑潮之海的餵食解說可先查時間",0],
+["12:30","午餐｜福助玉子燒 備瀬店","eat","備瀨福木並木道就在附近，吃完可散步 15 分鐘",0],
+["15:00","星巴克 名護21世紀之森公園 あけみおてらす店","spot","休息、喝咖啡看海景"],
+["17:00","萬座毛（視情況）","spot","12 月約 17:45 日落；若已太累可跳過",0],
+["19:00","國際通 晚餐｜拉麵天國","eat","萬座毛回那霸約 1–1.5 小時，實際可能 19:30 抵達",0],
+["20:00","淳久堂書店 那霸店（~21:00）","spot","營業到 21:00，抵達後先逛書店或先吃飯皆可"]],
+tip:"今天是最長的車程日，油量留意；北部晚上路燈少，回程儘量在天黑前上高速。"},
+{k:"12/11（五）",t:"購物・寄明信片",e:[
+["10:00","Parco City 浦添","spot","購物逛街，OTS 車子可直接開過去，停車方便"],
+["12:00","午餐｜Kuuya 文字燒","eat","PARCO CITY 內",0],
+["13:30","繼續逛 PARCO CITY・寄明信片","spot","在郵局或 Parco 內郵筒寄出；沖繩寄台灣約 5–7 天",0],
+["16:30","回國際通逛街","spot","最後一晚，買伴手禮：紅芋塔、黑糖、ちんすこう",0],
+["18:30","晚餐｜LUCKY MAXIMUM 居酒屋","eat","國際通上的居酒屋，旺季建議先訂位",0]],
+tip:"最後一晚可順路買伴手禮，隔天早上只剩 check out，回程行李重量留意航空公司限制。"},
+{k:"12/12（六）",t:"返程日",e:[
+["09:30","飯店 Check out","spot","退房前再檢查車內有無遺落物品"],
+["09:40","Haruchii 外帶飯糰","eat","早餐／午餐直接外帶，節省時間",0],
+["10:00","波上宮・波之上海灘","spot","沖繩知名神社，旁邊就是海；逛 30–40 分鐘即可",0],
+["10:45","加滿油","move","還車前加滿油並保留收據，OTS 通常要求滿油還車",1],
+["11:30","OTS 還車","spot","搭接駁車前往機場",0],
+["12:00","那霸機場報到","move","14:00 起飛，建議至少 12:00 抵達辦理登機與退稅",0],
+["14:00","起飛 IT289","move","14:55 抵達高雄"]],
+tip:"還車前先確認加油站位置，OTS 還車地點到機場的接駁時間通常 10–15 分鐘。"}
+];
+var nav=document.getElementById('nav'),main=document.getElementById('main');
+function q(n){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(n)}
+function show(i){
+var d=D[i],h='<h2>'+d.k+'・'+d.t+'</h2>';
+d.e.forEach(function(x){
+var nm=x[1].split('｜').pop().split('（')[0];
+h+='<div class="ev '+x[2]+'"><div class="t">'+x[0]+'</div><div><div class="n">'+x[1]+(x[4]?'<span class="tag">補</span>':'')+(x[2]!='move'?' <a href="'+q(nm)+'" target="_blank" rel="noopener">📍</a>':'')+'</div><div class="d">'+x[3]+'</div></div></div>'});
+h+='<div class="tip">💡 '+d.tip+'</div>';
+main.innerHTML=h;
+Array.prototype.forEach.call(nav.children,function(b,j){b.className=j==i?'on':''});
+try{location.hash='d'+(i+1)}catch(e){}
+}
+D.forEach(function(d,i){var b=document.createElement('button');b.textContent=d.k.split('（')[0];b.onclick=function(){show(i)};nav.appendChild(b)});
+var m=(location.hash||'').match(/^#d([1-5])$/);show(m?m[1]-1:0);
+var pink=false;document.getElementById('th').onclick=function(){pink=!pink;document.documentElement.setAttribute('data-theme',pink?'pink':'light');this.textContent=pink?'🌊 切換海洋藍':'🌸 切換粉嫩'};
+var clk=document.getElementById('clk'),on=false,tm;
+function tick(){var n=new Date(Date.now()+(new Date().getTimezoneOffset()+540)*60000);clk.textContent='日本 '+('0'+n.getHours()).slice(-2)+':'+('0'+n.getMinutes()).slice(-2)+':'+('0'+n.getSeconds()).slice(-2)+'（比台灣快 1 小時）'}
+document.getElementById('jp').onclick=function(){on=!on;clk.hidden=!on;this.className=on?'on':'';clearInterval(tm);if(on){tick();tm=setInterval(tick,1000)}};
+</script>
+</body>
+</html>
